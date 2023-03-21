@@ -164,7 +164,7 @@ $(document).ready(function () {
   $("#rightcolumn").resizable({handles: 'e'});
   $("#leftcolumn").resizable({handles: 'e'});
   $("#rightcolumn").draggable();
-  $("#leftcolumn").draggable();
+ // $("#leftcolumn").draggable();
   
   /** 
    * label, lableID editLabelDialog and form are all used as part of the ability to modify labels on
@@ -527,7 +527,7 @@ function updateTime(){
       }
     }
   });
-  myChart.update(); //update what is seen
+  Chart.getChart('myChart').update();
 };
 
 /** startStopAnnimmdation (sp?): toggles between time annimation or not
@@ -637,7 +637,8 @@ function updateLabel(){
 function deleteItem(i){
   loadedData.splice(i,1);
   updateObjectList();
-  Chart.getChart('myChart').update();
+  plotData();
+  //Chart.getChart('myChart').update();
 }
 
 /** 
