@@ -324,7 +324,9 @@ $(document).ready(function () {
           });
           var pr = Array(result.length).fill(1);
           // Build an item which will represent the meta data about the file just loaded, including information about how to plot the data
-          item = { label: file.name , data: result, showLine: false, pointStyle: 'circle', pointRadius: pr , bml: 'boat', borderColor: '#36A2EB', hidden: false};
+          item = { label: file.name , data: result, showLine: false,
+                   pointStyle: 'circle', pointRadius: pr , bml: 'boat',
+                    borderColor: '#36A2EB', hidden: false};
           // Store the item int the loadedData collection (note this holds boats, marks and lines - identified by the bml parameter)
           loadedData.push(item);
           // Since new boat data is being loaded, we need to update the various maximums and minimums
