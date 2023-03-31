@@ -739,8 +739,10 @@ function screenShot(){
 </div>
 
 <div class="topnav">
-  <a href="#" onclick="downloadJSON()">Save</a>
-  <a href="#" onclick="loadJSON()">Load</a>
+  <a href="#" onclick="$('#csv').trigger('click')">Files</a>
+  <input id="csv" type="file" accept=".csv" class="form-control"  multiple hidden="hidden"> </input>
+  <a href="#" onclick="downloadJSON()">Save Config</a>
+  <a href="#" onclick="loadJSON()">Load Config</a>
   <a href="#" onclick="screenShot()">Screenshot</a>
   <a href="help.html" rel="modal:open" class="modal" style="float:right">Help</a>
 </div>
@@ -756,12 +758,12 @@ function screenShot(){
     </div>
   </div>
   <div class="rightcolumn" id="rightcolumn">
-    <div class="card">
+    <!--div class="card">
       <div id="insertCSV" class = "formblacktransparent">
         <h2>Load Files:</h2>
         <input id="csv" type="file" accept=".csv" class="form-control"  multiple> </input>
         <button type="button" class="log-btn" id="confCsv"> Confirm </button>
-    </div>
+    </div-->
     </div>
     <div class="card">
       <h3>Rotate View:</h3>
