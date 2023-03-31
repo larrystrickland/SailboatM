@@ -738,7 +738,7 @@ function screenShot(){
   <h2>Boat Monitor</h2>
 </div>
 
-<div class="topnav">
+<div class="topnav" id="mainMenu">
   <a href="#" onclick="$('#csv').trigger('click')">Files</a>
   <input id="csv" type="file" accept=".csv" class="form-control"  multiple hidden="hidden"> </input>
   <a href="#" onclick="downloadJSON()">Save Config</a>
@@ -763,8 +763,8 @@ function screenShot(){
         <h2>Load Files:</h2>
         <input id="csv" type="file" accept=".csv" class="form-control"  multiple> </input>
         <button type="button" class="log-btn" id="confCsv"> Confirm </button>
+      </div>
     </div-->
-    </div>
     <div class="card">
       <h3>Rotate View:</h3>
       <div id="sliderRot"></div>
