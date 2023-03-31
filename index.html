@@ -136,6 +136,9 @@ var parseTime = d3.timeParse("%y-%m-%d %H:%M:%S.%L");
 var t0 = new Date(2000, 1, 1);
 var editLabelDialog, label , labelID ;
 
+var colors = ['#a50026','#d73027','#f46d43','#fdae61','#fee08b','#d9ef8b','#a6d96a','#66bd63','#1a9850','#006837'];
+var colorCounter =0;
+
 const plugin = {
   id: 'customCanvasBackgroundColor',
   beforeDraw: (chart, args, options) => {
@@ -251,7 +254,8 @@ $(document).ready(function () {
       if (cords[0] != '' && cords[1] != '') {// check to see event has x, y coordinates
         if (e.which  == 1) { //left mouse button - so will be adding a mark
           // Build data item to add to data
-          item = { label: "Mark "+markCounter, data:  [xy2GPS(cords[0], cords[1])], showLine: false, pointStyle: 'circle', pointRadius: 5, bml:'mark' , hidden: false};
+          item = { label: "Mark "+markCounter, data:  [xy2GPS(cords[0], cords[1])], showLine: false, pointStyle: 'circle', pointRadius: 5, bml:'mark' , hidden: false, borderColor:colors[colorCounter], backgroundColor: colors[colorCounter]};
+          colorCounter +=1; colorCounter = (colorCounter > colors.length-1) ? 0 : colorCounter;
           loadedData.push(item);
           markCounter += 1;
           // new data added, so have to replot
@@ -272,7 +276,8 @@ $(document).ready(function () {
         if (e.which == 3) { //left mouse button}
           // Mouse up on left mouse, so need to add a line
           // Build line item
-          item = { label: "Line "+lineCounter , data:  [xy2GPS(lineStartX, lineStartY), xy2GPS(cords[0], cords[1])], showLine: true, pointStyle: 'rect', pointRadius: 3, bml:'line' , hidden: false};
+          item = { label: "Line "+lineCounter , data:  [xy2GPS(lineStartX, lineStartY), xy2GPS(cords[0], cords[1])], showLine: true, pointStyle: 'rect', pointRadius: 3, bml:'line' , hidden: false, borderColor:colors[colorCounter], backgroundColor: colors[colorCounter]};
+          colorCounter +=1; colorCounter = (colorCounter > colors.length-1) ? 0 : colorCounter;
           loadedData.push(item);
           lineCounter += 1;
           plotData();
@@ -328,7 +333,8 @@ $(document).ready(function () {
           // Build an item which will represent the meta data about the file just loaded, including information about how to plot the data
           item = { label: file.name , data: result, showLine: false,
                    pointStyle: 'circle', pointRadius: pr , bml: 'boat',
-                    borderColor: '#36A2EB', hidden: false};
+                    borderColor: color[colorCounter], hidden: false};
+          colorCounter +=1; colorCounter = (colorCounter > colors.length-1) ? 0 : colorCounter;
           // Store the item int the loadedData collection (note this holds boats, marks and lines - identified by the bml parameter)
           loadedData.push(item);
           // Since new boat data is being loaded, we need to update the various maximums and minimums
@@ -592,7 +598,7 @@ function annimateTime(){
  * **/
 function updateObjectList(){
   var loadedObjects = $('#loadedObjects')
-  var colors = ['#FF0000', '#00FF00', '#0000FF', '#808080']
+  // var colors = ['#FF0000', '#00FF00', '#0000FF', '#808080']
   var colorString ='';
   loadedObjects.empty();
   $.each(loadedData, function(i)
