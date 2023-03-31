@@ -333,7 +333,7 @@ $(document).ready(function () {
           // Build an item which will represent the meta data about the file just loaded, including information about how to plot the data
           item = { label: file.name , data: result, showLine: false,
                    pointStyle: 'circle', pointRadius: pr , bml: 'boat',
-                    borderColor: color[colorCounter], hidden: false};
+                    borderColor: colors[colorCounter], hidden: false};
           colorCounter +=1; colorCounter = (colorCounter > colors.length-1) ? 0 : colorCounter;
           // Store the item int the loadedData collection (note this holds boats, marks and lines - identified by the bml parameter)
           loadedData.push(item);
