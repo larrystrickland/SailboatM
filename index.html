@@ -313,35 +313,42 @@ $(document).ready(function () {
     
         reader.addEventListener('load', function(e) { // add listener for when file has finished loading
         // TO BE DONE: Validate csv format is good for this application
-          result = $.csv.toObjects(e.target.result); // should contain a collection of rows from file
-          result.forEach(function(d) { 
-            d.Satellites = +d.Satellites;
-            d.Latitude = +d.Latitude;
-            d.Longitude = +d.Longitude;
-            d.Speed = +d.Speed;
-            d.Heading = +d.Heading;
-            temp = d.Date;
-            milliLength = temp.split('.')[1].length;
-            if (milliLength == 1) {d.Date+'00';}
-            if (milliLength == 2) {d.Date+'0';}
-            d.date1 = parseTime(d.Date); 
-            d.milliseconds = d.date1-t0;
-            d.x = 0; 
-            d.y = 0;
-          });
-          var pr = Array(result.length).fill(1);
-          // Build an item which will represent the meta data about the file just loaded, including information about how to plot the data
-          item = { label: file.name , data: result, showLine: false,
-                   pointStyle: 'circle', pointRadius: pr , bml: 'boat',
-                    borderColor: colors[colorCounter], hidden: false};
-          colorCounter +=1; colorCounter = (colorCounter > colors.length-1) ? 0 : colorCounter;
-          // Store the item int the loadedData collection (note this holds boats, marks and lines - identified by the bml parameter)
-          loadedData.push(item);
-          // Since new boat data is being loaded, we need to update the various maximums and minimums
-          updateMaxMin();
-          // Because we have new data, we should replot.  
-          plotData();
-          updateObjectList();
+          var header = e.target.result.split('\n').shift().replace(/\s/g, '');
+          console.log(header);
+          if(/Satellites,Latitude,Longitude,Speed,Heading,Date/.test(header)){
+            result = $.csv.toObjects(e.target.result); // should contain a collection of rows from file
+            console.log(result);
+            result.forEach(function(d) { 
+              d.Satellites = +d.Satellites;
+              d.Latitude = +d.Latitude;
+              d.Longitude = +d.Longitude;
+              d.Speed = +d.Speed;
+              d.Heading = +d.Heading;
+              temp = d.Date;
+              milliLength = temp.split('.')[1].length;
+              if (milliLength == 1) {d.Date+'00';}
+              if (milliLength == 2) {d.Date+'0';}
+              d.date1 = parseTime(d.Date); 
+              d.milliseconds = d.date1-t0;
+              d.x = 0; 
+              d.y = 0;
+            });
+            var pr = Array(result.length).fill(1);
+            // Build an item which will represent the meta data about the file just loaded, including information about how to plot the data
+            item = { label: file.name , data: result, showLine: false,
+                    pointStyle: 'circle', pointRadius: pr , bml: 'boat',
+                      borderColor: colors[colorCounter], hidden: false};
+            colorCounter +=1; colorCounter = (colorCounter > colors.length-1) ? 0 : colorCounter;
+            // Store the item int the loadedData collection (note this holds boats, marks and lines - identified by the bml parameter)
+            loadedData.push(item);
+            // Since new boat data is being loaded, we need to update the various maximums and minimums
+            updateMaxMin();
+            // Because we have new data, we should replot.  
+            plotData();
+            updateObjectList();
+          } else {
+            alert("File format appears to be incorrect");
+          }
         });
         reader.readAsText(file);
     });
