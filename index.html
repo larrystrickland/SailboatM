@@ -289,11 +289,13 @@ $(document).ready(function () {
   });
   
   //$("#confCsv").addEventListener('click', function() {
-  document.querySelector("#confCsv").addEventListener('click', function() {
+  /**document.querySelector("#confCsv").addEventListener('click', function() {
     if(document.querySelector("#csv").files.length == 0) {
       alert('Error : No file selected');
     return;
-    }
+    } **/
+
+    document.querySelector("#csv").addEventListener('change',function () {
     
     var files = document.querySelector("#csv").files; // a collection of files, if the user selects more than one
     Array.from(files).forEach(file => {
@@ -601,9 +603,9 @@ function updateObjectList(){
        colorString += '<option value="'+colors[j]+'" rgb="'+colors[j]+'" style="background-color:'+colors[j]+'"> </option>'
     });
     if(loadedData[i].hidden){
-      var vis_icon = '<span class="ui-icon ui-icon-check" onclick="showItem('+i+')"/>'
+      var vis_icon = '<span class="ui-icon ui-icon-check" onclick="showItem('+i+')"></span><span class="ui-icon ui-icon-blank"></span>'
     } else {
-      var vis_icon = '<span class="ui-icon ui-icon-close" onclick="hideItem('+i+')"/>'
+      var vis_icon = '<span class="ui-icon ui-icon-blank"></span><span class="ui-icon ui-icon-close" onclick="hideItem('+i+')"></span>'
     }
     loadedObjects.append(
       '<div>' 
